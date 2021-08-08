@@ -2,8 +2,36 @@ const searchValue = document.querySelector("#search");
 const searchBtn = document.querySelector("#searchBtn");
 const mainBody = document.querySelector("#main");
 
+//define searched cities array
+let searchedCities = [];
+
+//variable to define the searchedCities array from local storage
+if(localStorage.getItem("searches")){
+    searchedCities = JSON.parse(localStorage.getItem("searches"))
+}
+
+//function to save city search into local storage
+const saveSearch = function(search) {
+    console.log(search);
+    // console.log(searchedCities);
+    searchedCities.push(search);
+    localStorage.setItem("searches", JSON.stringify(searchedCities));
+    
+    searchValue.value = "";
+}
+
+//function to handle what happens when search button is clicked
+const searchHandler = function(e) {
+    e.preventDefault();
+    city = searchValue.value;
+
+    console.log(city);
+    getTrails(3, 3, city);
+    // searchValue.value = "";
+}
+
 //function gets information from api and calls render function to display elements
-getTrails = function() {
+const getTrails = function(lat, lon, city) {
 fetch("https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=-87.629799&lat=41.878113&radius=25", {
 	"method": "GET",
 	"headers": {
@@ -17,6 +45,7 @@ fetch("https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=-87.629799&l
             console.log(data);
             // console.log(data.data[0].name);
             renderTrails(data);
+            saveSearch(city)
         })
     } else {
         alert("Error: Could not find results");
@@ -29,7 +58,7 @@ fetch("https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=-87.629799&l
 };
 
 //function renders api information to the page
-renderTrails = function(results) {
+const renderTrails = function(results) {
 for(i = 0; i < 5; i++) {
     //variable to find park name
     let trailName = results.data[i].name;
@@ -59,11 +88,8 @@ for(i = 0; i < 5; i++) {
 
 }
 //this will get deleted once user input is added
-getTrails()
+// getTrails()
 
 //user input
-searchBtn.addEventListener('click', function(){
-    //to make sure user input works
-    console.log('hello');
-});
+searchBtn.addEventListener('click', searchHandler);
 
