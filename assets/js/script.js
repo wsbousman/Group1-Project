@@ -5,30 +5,44 @@ const mainBody = document.querySelector("#main");
 //define searched cities array
 let searchedCities = [];
 
+//function to handle what happens when search button is clicked
+const searchHandler = function(e) {
+    e.preventDefault();
+    if (searchValue.value === "") {
+
+    } else {
+        city = searchValue.value;
+    }
+
+    getTrails(3, 3, city);
+    // searchValue.value = "";
+};
+
 //variable to define the searchedCities array from local storage
 if(localStorage.getItem("searches")){
-    searchedCities = JSON.parse(localStorage.getItem("searches"))
+    searchedCities = JSON.parse(localStorage.getItem("searches"));
 }
 
 //function to save city search into local storage
 const saveSearch = function(search) {
-    console.log(search);
-    // console.log(searchedCities);
-    searchedCities.push(search);
+    //takes value of searched item and adds it to array if not a duplicate
+    let city = searchValue.value.trim().toLowerCase();
+    if(searchedCities.length == 10) {
+        searchedCities.splice(0, 1)
+    }
+    if(searchedCities.includes(search) == false) {
+        searchedCities.push(search);
+    }
+    //sets array to local storage
+
+    let firstCapital = search.substring(0,1).toUpperCase() + search.substring(1);
+    //sets searchValue element to empty 
     localStorage.setItem("searches", JSON.stringify(searchedCities));
+    searchValue.value ="";
     
-    searchValue.value = "";
-}
-
-//function to handle what happens when search button is clicked
-const searchHandler = function(e) {
-    e.preventDefault();
-    city = searchValue.value;
-
+    console.log(firstCapital)
     console.log(city);
-    getTrails(3, 3, city);
-    // searchValue.value = "";
-}
+};
 
 //function gets information from api and calls render function to display elements
 const getTrails = function(lat, lon, city) {
@@ -84,9 +98,9 @@ for(i = 0; i < 5; i++) {
     }
     console.log(trailRating);
 
-}
+};
 
-}
+};
 //this will get deleted once user input is added
 // getTrails()
 
