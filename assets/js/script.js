@@ -1,6 +1,7 @@
 const searchValue = document.querySelector("#search");
 const searchBtn = document.querySelector("#searchBtn");
 const mainBody = document.querySelector("#main");
+
 let cityInput = document.querySelector('#search');
 let userInput = document.querySelector('#userInput');
 
@@ -54,6 +55,9 @@ let getLatLong = function(cityName) {
 }
 
 /* COLLINZ OG CODE
+
+//function gets information from api and calls render function to display elements
+
 getTrails = function() {
 fetch("https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=-87.629799&lat=41.878113&radius=25", {
 	"method": "GET",
@@ -78,7 +82,10 @@ fetch("https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=-87.629799&l
     
 })
 };
+
 */
+
+
 
 //function renders api information to the page
 renderTrails = function(results) {
@@ -106,8 +113,22 @@ for(i = 0; i < 5; i++) {
         trailRating = results.data[i].rating;
     }
     console.log(trailRating);
+
 }
 }
 
 //user input
 userInput.addEventListener('submit', reset);
+=======
+
+}
+
+}
+//this will get deleted once user input is added
+getTrails()
+
+//user input
+searchBtn.addEventListener('click', function(){
+    //to make sure user input works
+    console.log('hello');
+});
