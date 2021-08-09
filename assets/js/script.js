@@ -45,31 +45,31 @@ const saveSearch = function(search) {
 };
 
 //function gets information from api and calls render function to display elements
-const getTrails = function(lat, lon, city) {
-fetch("https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=-87.629799&lat=41.878113&radius=25", {
-	"method": "GET",
-	"headers": {
-		"x-rapidapi-key": "53bb73ef70msh2c586d23ef2e24cp1e49c1jsn9741f86cc83c",
-		"x-rapidapi-host": "trailapi-trailapi.p.rapidapi.com"
-	}
-})
-.then(response => {
-	if (response.ok) {
-        response.json().then(function(data) {
-            console.log(data);
-            // console.log(data.data[0].name);
-            renderTrails(data);
-            saveSearch(city)
-        })
-    } else {
-        alert("Error: Could not find results");
-    }
-})
-.catch(err => {
-	console.error(err);
+// const getTrails = function(lat, lon, city) {
+// fetch("https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=-87.629799&lat=41.878113&radius=25", {
+// 	"method": "GET",
+// 	"headers": {
+// 		"x-rapidapi-key": "53bb73ef70msh2c586d23ef2e24cp1e49c1jsn9741f86cc83c",
+// 		"x-rapidapi-host": "trailapi-trailapi.p.rapidapi.com"
+// 	}
+// })
+// .then(response => {
+// 	if (response.ok) {
+//         response.json().then(function(data) {
+//             console.log(data);
+//             // console.log(data.data[0].name);
+//             renderTrails(data);
+//             saveSearch(city)
+//         })
+//     } else {
+//         alert("Error: Could not find results");
+//     }
+// })
+// .catch(err => {
+// 	console.error(err);
     
-})
-};
+// })
+// };
 
 //function renders api information to the page
 const renderTrails = function(results) {
