@@ -26,10 +26,8 @@ const saveSearch = function(search) {
     }
     if(searchedCities.includes(search) == false) {
         searchedCities.push(search);
-=======
-=======
->>>>>>> main
->>>>>>> 59488a72accd8da36ab4dc01d65962ab21a4fba3
+    }
+    
 let cityInput = document.querySelector('#search');
 const userInput = document.querySelector('#userInput');
 //define searched cities array
