@@ -5,18 +5,7 @@ const mainBody = document.querySelector("#main");
 //define searched cities array
 let searchedCities = [];
 
-//function to handle what happens when search button is clicked
-const searchHandler = function(e) {
-    e.preventDefault();
-    if (searchValue.value === "") {
 
-    } else {
-        city = searchValue.value;
-    }
-
-    getTrails(3, 3, city);
-    // searchValue.value = "";
-};
 
 //variable to define the searchedCities array from local storage
 if(localStorage.getItem("searches")){
