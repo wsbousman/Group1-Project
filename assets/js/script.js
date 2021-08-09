@@ -2,7 +2,62 @@ const searchValue = document.querySelector("#search");
 const searchBtn = document.querySelector("#searchBtn");
 const mainBody = document.querySelector("#main");
 
+let cityInput = document.querySelector('#search');
+let userInput = document.querySelector('#userInput');
+
+// prevent default, reset input box, alert if input empty
+let reset = function(event) {
+    event.preventDefault();
+    let cityName = cityInput.value.trim();
+    if (cityName) {
+      getLatLong(cityName);
+      cityInput.textContent = '';
+      cityInput.value = '';
+    } else {
+      alert('Please enter a city.');
+    }
+};
+
 //function gets information from api and calls render function to display elements
+let getLatLong = function(cityName) {
+    let weatherAPI = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=65e4e58787a7fd23ec32767cf0dce3ec';
+    fetch(weatherAPI).then(function(response) {
+        if (response.ok) {
+          response.json().then(function(data) {
+            console.log(data);
+            var latBoi = (data).city.coord.lat;
+            var lonBoi = (data).city.coord.lon;
+            fetch(`https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=${lonBoi}&lat=${latBoi}&radius=25`, {
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-key": "53bb73ef70msh2c586d23ef2e24cp1e49c1jsn9741f86cc83c",
+                    "x-rapidapi-host": "trailapi-trailapi.p.rapidapi.com"
+                }
+            }).then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return Promise.reject(response);
+                }
+            }).then(function (Data) {
+                console.log(Data);
+                renderTrails(Data);
+            }).catch(function (error) {
+                console.warn(error);
+            });
+        })
+        } else {
+        alert("There was a problem with your request!");
+        }
+    }).catch(function(error) {
+        alert('Unable to connect to openweathermap.org.');
+        })
+}
+
+/* COLLINZ OG CODE
+
+//function gets information from api and calls render function to display elements
+
 getTrails = function() {
 fetch("https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=-87.629799&lat=41.878113&radius=25", {
 	"method": "GET",
@@ -27,6 +82,10 @@ fetch("https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=-87.629799&l
     
 })
 };
+
+*/
+
+
 
 //function renders api information to the page
 renderTrails = function(results) {
@@ -56,6 +115,13 @@ for(i = 0; i < 5; i++) {
     console.log(trailRating);
 
 }
+}
+
+//user input
+userInput.addEventListener('submit', reset);
+=======
+
+}
 
 }
 //this will get deleted once user input is added
@@ -66,4 +132,3 @@ searchBtn.addEventListener('click', function(){
     //to make sure user input works
     console.log('hello');
 });
-
