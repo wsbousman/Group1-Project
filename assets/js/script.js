@@ -1,6 +1,7 @@
 const searchValue = document.querySelector("#search");
 const searchBtn = document.querySelector("#searchBtn");
 const mainBody = document.querySelector("#main");
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 //define searched cities array
@@ -23,8 +24,38 @@ const saveSearch = function(search) {
     if(searchedCities.includes(search) == false) {
         searchedCities.push(search);
 =======
+=======
+>>>>>>> main
 let cityInput = document.querySelector('#search');
-let userInput = document.querySelector('#userInput');
+const userInput = document.querySelector('#userInput');
+
+//define searched cities array
+let searchedCities = [];
+
+
+
+
+//variable to define the searchedCities array from local storage
+if(localStorage.getItem("searches")){
+    searchedCities = JSON.parse(localStorage.getItem("searches"));
+}
+
+//function to save city search into local storage
+const saveSearch = function(search) {
+    //takes value of searched item and adds it to array if not a duplicate
+    search = search.toLowerCase();
+    if(searchedCities.length == 10) {
+        searchedCities.splice(0, 1)
+    }
+    if(searchedCities.includes(search) == false) {
+        searchedCities.push(search);
+    }
+    console.log(searchedCities);
+    localStorage.setItem("searches", JSON.stringify(searchedCities));
+
+    let firstCapital = search.substring(0, 1).toUpperCase() + search.substring(1);
+    console.log(firstCapital);
+};
 
 // prevent default, reset input box, alert if input empty
 let reset = function(event) {
@@ -63,6 +94,7 @@ let getLatLong = function(cityName) {
             }).then(function (Data) {
                 console.log(Data);
                 renderTrails(Data);
+                saveSearch(cityName);
             }).catch(function (error) {
                 console.warn(error);
             });
@@ -73,6 +105,7 @@ let getLatLong = function(cityName) {
     }).catch(function(error) {
         alert('Unable to connect to openweathermap.org.');
         })
+<<<<<<< HEAD
 }
 
 /* COLLINZ OG CODE
@@ -166,19 +199,53 @@ for(i = 0; i < 5; i++) {
         trailRating = "No rating found"
     } else {
         trailRating = results.data[i].rating;
-    }
-    console.log(trailRating);
+=======
+};
 
+//function renders api information to the page
+const renderTrails = function(results) {
+    for(i = 0; i < 5; i++) {
+        //variable to find park name
+        let trailName = results.data[i].name;
+        console.log(trailName);
+
+        //variable to find park url
+        let trailUrl = results.data[i].url;
+        console.log(trailUrl);
+
+        //variable to find park length
+        let trailLength = Math.round(results.data[i].length) + " miles"
+        console.log(trailLength);
+
+        //variable to find park region
+        let trailRegion = results.data[i].region;
+        console.log(trailRegion);
+
+        //variable to find park rating
+        if(results.data[i].rating === 0) {
+            trailRating = "No rating found"
+        } else {
+            trailRating = results.data[i].rating;
+        }
+        console.log(trailRating);
+>>>>>>> main
+    }
+};
+
+
+<<<<<<< HEAD
 <<<<<<< HEAD
 };
 =======
 }
 }
+=======
+>>>>>>> main
 
 //user input
 userInput.addEventListener('submit', reset);
-=======
 
+<<<<<<< HEAD
 }
 >>>>>>> 6db54831652d763cdfa754e25cee48147598d906
 
@@ -196,3 +263,8 @@ searchBtn.addEventListener('click', function(){
     console.log('hello');
 });
 >>>>>>> 6db54831652d763cdfa754e25cee48147598d906
+=======
+
+
+
+>>>>>>> main
