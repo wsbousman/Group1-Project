@@ -2,6 +2,27 @@ const searchValue = document.querySelector("#search");
 const searchBtn = document.querySelector("#searchBtn");
 const mainBody = document.querySelector("#main");
 
+
+//define searched cities array
+let searchedCities = [];
+
+
+
+//variable to define the searchedCities array from local storage
+if(localStorage.getItem("searches")){
+    searchedCities = JSON.parse(localStorage.getItem("searches"));
+}
+
+//function to save city search into local storage
+const saveSearch = function(search) {
+    //takes value of searched item and adds it to array if not a duplicate
+    let city = searchValue.value.trim().toLowerCase();
+    if(searchedCities.length == 10) {
+        searchedCities.splice(0, 1)
+    }
+    if(searchedCities.includes(search) == false) {
+        searchedCities.push(search);
+
 let cityInput = document.querySelector('#search');
 let userInput = document.querySelector('#userInput');
 
@@ -54,41 +75,8 @@ let getLatLong = function(cityName) {
         })
 }
 
-/* COLLINZ OG CODE
-
-//function gets information from api and calls render function to display elements
-
-getTrails = function() {
-fetch("https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=-87.629799&lat=41.878113&radius=25", {
-	"method": "GET",
-	"headers": {
-		"x-rapidapi-key": "53bb73ef70msh2c586d23ef2e24cp1e49c1jsn9741f86cc83c",
-		"x-rapidapi-host": "trailapi-trailapi.p.rapidapi.com"
-	}
-})
-.then(response => {
-	if (response.ok) {
-        response.json().then(function(data) {
-            console.log(data);
-            // console.log(data.data[0].name);
-            renderTrails(data);
-        })
-    } else {
-        alert("Error: Could not find results");
-    }
-})
-.catch(err => {
-	console.error(err);
-    
-})
-};
-
-*/
-
-
-
 //function renders api information to the page
-renderTrails = function(results) {
+const renderTrails = function(results) {
 for(i = 0; i < 5; i++) {
     //variable to find park name
     let trailName = results.data[i].name;
@@ -113,22 +101,13 @@ for(i = 0; i < 5; i++) {
         trailRating = results.data[i].rating;
     }
     console.log(trailRating);
+};
 
-}
-}
+
 
 //user input
 userInput.addEventListener('submit', reset);
-=======
 
-}
 
-}
-//this will get deleted once user input is added
-getTrails()
 
-//user input
-searchBtn.addEventListener('click', function(){
-    //to make sure user input works
-    console.log('hello');
-});
+
