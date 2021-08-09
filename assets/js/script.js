@@ -16,13 +16,19 @@ if(localStorage.getItem("searches")){
 //function to save city search into local storage
 const saveSearch = function(search) {
     //takes value of searched item and adds it to array if not a duplicate
-    let city = searchValue.value.trim().toLowerCase();
+    search = search.toLowerCase();
     if(searchedCities.length == 10) {
         searchedCities.splice(0, 1)
     }
     if(searchedCities.includes(search) == false) {
         searchedCities.push(search);
     }
+    
+    localStorage.setItem("searches", JSON.stringify(searchedCities));
+
+    firstCapital = search.substring(0,1).toUpperCase() + search.substring(1);
+    console.log(firstCapital);
+}
     
 
 //variable to define the searchedCities array from local storage
@@ -79,33 +85,6 @@ let getLatLong = function(cityName) {
         alert('Unable to connect to openweathermap.org.');
         })
 }
-
-//function renders api information to the page
-const renderTrails = function(results) {
-for(i = 0; i < 5; i++) {
-    //variable to find park name
-    let trailName = results.data[i].name;
-    console.log(trailName);
-
-    //variable to find park url
-    let trailUrl = results.data[i].url;
-    console.log(trailUrl);
-
-    //variable to find park length
-    let trailLength = Math.round(results.data[i].length) + " miles"
-    console.log(trailLength);
-
-    //variable to find park region
-    let trailRegion = results.data[i].region;
-    console.log(trailRegion);
-
-    //variable to find park rating
-    if(results.data[i].rating === 0) {
-        trailRating = "No rating found"
-    } else {
-        trailRating = results.data[i].rating;
-};
-
 
 //function renders api information to the page
 const renderTrails = function(results) {
