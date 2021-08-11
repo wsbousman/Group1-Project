@@ -86,24 +86,6 @@ for(i = 0; i < 5; i++) {
         trailRating = results.data[i].rating;
     }
     console.log(trailRating);
-
-/*
-    let trailNameDiv = document.createElement("div");
-    // trailNameDiv.className = trailDiv
-    trailNameDiv.appendChild(trailName);
-    let trailUrlDiv = document.createElement("div");
-    // trailUrlDiv.className = trailDiv
-    trailUrlDiv.appendChild(trailUrl);
-    let trailLengthDiv = document.createElement("div");
-    // trailLengthDiv.className = trailDiv
-    trailLengthDiv.appendChild(trailLength);
-    let trailRegionDiv = document.createElement("div");
-    // trailRegionDiv.className = trailDiv
-    trailRegionDiv.appendChild(trailRegion);
-    let trailRatingDiv = document.createElement("div");
-    // trailRatingDiv.className = trailDiv
-    trailRatingDiv.appendChild(trailRating);
-*/
 }
 }
 
